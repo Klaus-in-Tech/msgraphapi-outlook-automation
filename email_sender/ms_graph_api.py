@@ -16,6 +16,7 @@ def get_access_token(application_id, client_secret, scopes):
         with open("refresh_token.txt", "r") as f:
             refresh_token = f.read()
         result = app.acquire_token_silent(scopes, account=None, refresh_token=refresh_token)
+        print(result+refresh_token)
     except:
         # Authorization code flow if no refresh token
         auth_url = app.get_authorization_request_url(scopes, redirect_uri="http://localhost:8000")
@@ -35,6 +36,6 @@ if __name__ == "__main__":
     load_dotenv()
     application_id = os.getenv("APPLICATION_ID")
     client_secret = os.getenv("CLIENT_SECRET")
-    scopes = ["https://graph.microsoft.com/Mail.ReadWrite"]
+    scopes = ["https://graph.microsoft.com/Mail.ReadWrite","https://graph.microsoft.com/Mail.Send"]
     headers = get_access_token(application_id, client_secret, scopes)
     print(headers)
