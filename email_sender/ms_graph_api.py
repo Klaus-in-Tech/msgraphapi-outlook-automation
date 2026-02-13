@@ -10,8 +10,6 @@ def get_access_token(application_id, client_secret, scopes):
     app = msal.ConfidentialClientApplication(
         application_id, authority="https://login.microsoftonline.com/common", client_credential=client_secret
     )
-
-    result = None
     
     # Check for refresh token (persists across runs)
     try:
@@ -24,8 +22,9 @@ def get_access_token(application_id, client_secret, scopes):
         webbrowser.open(auth_url)
         auth_code = input("Enter the authorization code from the browser: ")
         result = app.acquire_token_by_authorization_code(auth_code, scopes, redirect_uri="http://localhost:8000")
+        print(result)
     
-    if not result or "access_token" not in result:
+    if "access_token" in result:
         # Save refresh token for future use
         with open("refresh_token.txt", "w") as f:
             f.write(result["refresh_token"])
