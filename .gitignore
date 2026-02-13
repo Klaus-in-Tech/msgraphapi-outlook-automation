@@ -1,0 +1,8 @@
+.venv
+.env
+__pycache__/
+refresh_token.txt
+recipients.csv
+email.txt
+email.html
+welcome.html
