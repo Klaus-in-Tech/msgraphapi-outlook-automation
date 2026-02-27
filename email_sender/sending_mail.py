@@ -4,6 +4,7 @@ from email_sender.ms_graph_api import get_access_token
 import os
 from email_sender.templates import render_template
 from dotenv import load_dotenv
+import time
 
 def send_mail(subject, email_body, recipients, application_id, client_secret):
     scopes = ["https://graph.microsoft.com/Mail.Send", "https://graph.microsoft.com/Mail.ReadWrite"]
@@ -24,14 +25,15 @@ def send_mail(subject, email_body, recipients, application_id, client_secret):
             },
             "saveToSentItems": "true"
         }
-        print(f"Email sent to {addr}...")
 
-    response = requests.post(url, headers=headers, json=message)
-    if response.status_code == 202:
-        print("Email sent successfully.")
-    else:
-        print(f"Failed to send email: {response.status_code} {response.text}")
-
+        try:
+            response = requests.post(url, headers=headers, json=message)
+            if response.status_code == 202:
+                print(f"Email sent to {addr} successfully.")
+            else:
+                print(f"Failed to send email to {addr}: {response.status_code} {response.text}")
+        except Exception as e:
+            print(f"Exception occurred while sending to {addr}: {e}")
 # Example usage
 if __name__ == "__main__":
  
