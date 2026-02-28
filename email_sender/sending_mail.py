@@ -41,7 +41,7 @@ if __name__ == "__main__":
 
     application_id = os.getenv("APPLICATION_ID")
     client_secret = os.getenv("CLIENT_SECRET")
-    subject = "Test Email"
+    subject = "OFFSHORE PROCESS AUTOMATION SERVICES - FREE PROOF OF CONCEPT"
     email_body = render_template("email.txt")
 
     # CSV recipients settings
